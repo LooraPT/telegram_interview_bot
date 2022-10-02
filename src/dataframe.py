@@ -24,7 +24,7 @@ def set_discipline(): #list discipline
     discipline.sort()
     return discipline
 
-def set_people():#list sorted student
+def set_people():       #list student
     df = pd.read_excel(r"resources\liststudent.xls", usecols="B,G,I")
     df = df.sort_values(["Student"], ascending=True)
     my_set = set()
@@ -59,7 +59,7 @@ def search_all_discipline_for_student(full_name): #get list in format (student,a
             discipline.append(lst[i][1])
     return discipline
 
-def search_length(list, user): #get index and lenghth
+def search_length(list, user): #get how many discipline have one student
     a = 0
     for i in range(len(list)):
         if list[i][0] == user:

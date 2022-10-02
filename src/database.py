@@ -28,6 +28,23 @@ with sqlite3.connect(r"resources\results.db") as conn:
     );"""
     cur.executescript(TABLECREATE)
 
+def all_user_id():
+    try:
+        conn = sqlite3.connect(r"resources\results.db")
+        cur = conn.cursor()
+        cur.execute("SELECT user_id FROM tg_student_info")
+        results = cur.fetchall()
+        list = []
+        for i in results:
+            list.append(i)
+        return list
+
+    except sqlite3.Error as e:
+        print("Error", e)
+    finally:
+        cur.close()
+        conn.close()
+
 def restart_one_users_Full_name(full_name):
     try:
         conn = sqlite3.connect(r"resources\results.db")

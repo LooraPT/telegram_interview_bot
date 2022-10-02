@@ -1,4 +1,4 @@
-from src.database import restart_one_users_Full_name, delete_results, restart_db, add_question_seven, add_question_eight, add_question_nine, add_question_ten, add_question_three, add_question_four, add_question_five, add_question_six, add_question_two, add_question_one, add_user_and_course, get_state, get_full_name, check_user_id, add_full_name_in_first_table, add_length, get_length, minus_one_length_and_plus_state
+from src.database import all_user_id, restart_one_users_Full_name, delete_results, restart_db, add_question_seven, add_question_eight, add_question_nine, add_question_ten, add_question_three, add_question_four, add_question_five, add_question_six, add_question_two, add_question_one, add_user_and_course, get_state, get_full_name, check_user_id, add_full_name_in_first_table, add_length, get_length, minus_one_length_and_plus_state
 from src import dataframe
 from resources import config
 import logging
@@ -122,9 +122,9 @@ def fullname(update: Update, context: CallbackContext):
         if msg == 'back':
             update.message.reply_text('Okay, but remember i can destroyed this bot', reply_markup=ReplyKeyboardRemove())
         if msg == 'Delete(restart one users)':
-            update.message.reply_text('Write full name')
-            if dataframe.binary_search(allpeople, msg):
-                restart_one_users_Full_name(msg)
+            update.message.reply_text('/restartusers *full name users*')
+        if 'Spam' == msg:
+            update.message.reply_text('Write in format /spam (text)')
 
 
 
@@ -234,6 +234,19 @@ def adminCommand(update: Update, context: CallbackContext):
     if str(user_id) in config.ADMIN:
         context.bot.send_message(chat_id=update.effective_chat.id, text='Welcome ginius', reply_markup = ReplyKeyboardMarkup(keybo,resize_keyboard = True))
 
+def spamCommand(update: Update, context: CallbackContext):
+    if str(update.effective_chat.id) in config.ADMIN:
+        for i in all_user_id():
+            try:
+                context.bot.send_message(chat_id=i, text=i)
+            except:
+                pass
+
+def deleteoneusersCommand(update: Update, context: CallbackContext):
+    if str(update.effective_chat.id) in config.ADMIN:
+        a = update.message.text[update.message.text.find(' ') + 1:]
+        restart_one_users_Full_name(a)
+
 
 
 def main():
@@ -252,7 +265,9 @@ def main():
 
     dispatcher.add_handler(conv_handler)
     dispatcher.add_handler(CommandHandler("start", startCommand))
+    dispatcher.add_handler(CommandHandler("spam", spamCommand))
     dispatcher.add_handler(CommandHandler("admin", adminCommand))
+    dispatcher.add_handler(CommandHandler("restartusers", deleteoneusersCommand))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, fullname))
 
     updater.start_polling()

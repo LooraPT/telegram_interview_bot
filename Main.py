@@ -169,42 +169,43 @@ def oprosHandler(update: Update, context: CallbackContext):
         for i in range(len(StudentAndDiscipline)):
             if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
                 add_question_two(query, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
-
+                break
     if query in call_back_list3:
         context.bot.send_message(chat_id=update.effective_chat.id, text=config.qfp4, reply_markup=InlineKeyboardMarkup(buttons4))
         for i in range(len(StudentAndDiscipline)):
             if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
                 add_question_three(query, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
-
+                break
     if query in call_back_list4:
         context.bot.send_message(chat_id=update.effective_chat.id, text=config.qfp5, reply_markup=InlineKeyboardMarkup(buttons5))
         for i in range(len(StudentAndDiscipline)):
             if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
                 add_question_four(query, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
-
+                break
     if query in call_back_list5:
         context.bot.send_message(chat_id=update.effective_chat.id, text=config.qfp6, reply_markup=InlineKeyboardMarkup(buttons6))
         for i in range(len(StudentAndDiscipline)):
             if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
                 add_question_five(query, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
-
+                break
     if query in call_back_list6:
         context.bot.send_message(chat_id=update.effective_chat.id, text=config.qfp7, reply_markup=InlineKeyboardMarkup(buttons7))
         for i in range(len(StudentAndDiscipline)):
             if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
                 add_question_six(query, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
-
+                break
     if query in call_back_list7:
         context.bot.send_message(chat_id=update.effective_chat.id, text=config.qfp8, reply_markup=InlineKeyboardMarkup(buttons8))
         for i in range(len(StudentAndDiscipline)):
             if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
                 add_question_seven(query, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
-
+                break
     if query in call_back_list8:
         context.bot.send_message(chat_id=update.effective_chat.id, text=config.qfp9)
         for i in range(len(StudentAndDiscipline)):
             if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
                 add_question_eight(query, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
+                break
         return QUESTIONONE
 
 
@@ -212,6 +213,7 @@ def questionone(update: Update, context: CallbackContext):
     for i in range(len(StudentAndDiscipline)):
         if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
             add_question_nine(update.message.text, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
+            break
     update.message.reply_text(config.qfp10)
     return QUESTIONTWO
 
@@ -220,6 +222,7 @@ def questiontwo(update: Update, context: CallbackContext):
     for i in range(len(StudentAndDiscipline)):
         if get_full_name(update.effective_chat.id) == StudentAndDiscipline[i][0]:
             add_question_ten(update.message.text, update.effective_chat.id, StudentAndDiscipline[i - 1 + get_state(update.effective_chat.id)][1])
+            break
     update.message.reply_text('Дякую за пройдену дісципліну, для наступної натисніть кнопку знизу', reply_markup = ReplyKeyboardMarkup(nextdis,resize_keyboard = True))
     return ConversationHandler.END
 

@@ -1,5 +1,5 @@
 from src.database import all_user_id, restart_one_users_Full_name, delete_results, restart_db, add_question_seven, add_question_eight, add_question_nine, add_question_ten, add_question_three, add_question_four, add_question_five, add_question_six, add_question_two, add_question_one, add_user_and_course, get_state, get_full_name, check_user_id, add_full_name_in_first_table, add_length, get_length, minus_one_length_and_plus_state
-from src import dataframe
+from src.dataframe import StudentXls
 from resources import config
 import logging
 from telegram import *
@@ -9,8 +9,11 @@ from telegram.ext.dispatcher import run_async
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-StudentAndDiscipline = dataframe.list_Student() #in this list saves name students and his lessons in format [(Name, lesson), ... , (name1399, lesson1399)]
-allpeople = dataframe.set_people() #all student list
+StudentXl = StudentXls("resources\liststudent.xls")
+
+StudentAndDiscipline = StudentXl.list_Student() #in this list saves name students and his lessons in format [(Name, lesson), ... , (name1399, lesson1399)]
+allpeople = StudentXl.set_people() #all student list
+
 
 QUESTIONONE, QUESTIONTWO = range(2)
 
@@ -75,10 +78,10 @@ def fullname(update: Update, context: CallbackContext):
     msg = update.message.text
     user_id = update.effective_chat.id
     if get_state(user_id) == 0:
-        if dataframe.binary_search(allpeople, msg):
+        if StudentXls.binary_search(allpeople, msg):
 
             add_full_name_in_first_table(msg, user_id)
-            add_length(dataframe.search_length(StudentAndDiscipline, msg), user_id)
+            add_length(StudentXls.search_length(StudentAndDiscipline, msg), user_id)
 
             if get_length(user_id) != 0:
                 for i in range(len(StudentAndDiscipline)):

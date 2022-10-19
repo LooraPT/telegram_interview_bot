@@ -4,6 +4,7 @@ from resources import config
 import logging
 from telegram import *
 from telegram.ext import *
+from telegram.ext.defaults import Defaults
 from telegram.ext.dispatcher import run_async
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -257,7 +258,7 @@ def deleteoneusersCommand(update: Update, context: CallbackContext):
 
 def main():
     logger.info('Start bot')
-    updater = Updater(config.TOKEN)
+    updater = Updater(config.TOKEN, defaults = Defaults(run_async = True))
     dispatcher = updater.dispatcher
 
     conv_handler = ConversationHandler(

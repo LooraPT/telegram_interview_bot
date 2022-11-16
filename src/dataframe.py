@@ -1,16 +1,17 @@
 import pandas as pd
-
+import xlrd
 
 class StudentXls:
     def __init__(self, name):
-        self.df = pd.read_excel(name, usecols="B,G,I")
+        self.workbook = xlrd.open_workbook(name, ignore_workbook_corruption=True)
+        self.df = pd.read_excel(self.workbook, usecols="B,G,I")
         self.df = self.df.sort_values(["Student"], ascending=True)
     def list_Student(self): #list (student, discipline)
         lst = []
         for i in range(len(self.df)):
             c = self.df.iloc[i]['Student']
             b = self.df.iloc[i]['Course']
-            b = b.replace('\t', '')
+            #b = b.replace('\t', '') # if file have 'tab'
             lst.append((c, b))
         return lst
 
@@ -58,10 +59,10 @@ class StudentXls:
         return discipline
 
     def search_length(list, user): #get how many discipline have one student
-        a = 0
+        count = 0
         for i in range(len(list)):
             if list[i][0] == user:
-                a += 1
-        return a
+                count += 1
+        return count
 
 
